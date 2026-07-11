@@ -92,7 +92,11 @@ class DVRouter(DVRouterBase):
         """
         
         ##### Begin Stage 2 #####
-
+        if packet.dst not in self.table:
+            return
+        if self.table[packet.dst].latency >= INFINITY:
+            return
+        self.send(packet, port= self.table[packet.dst].port)
         ##### End Stage 2 #####
 
     def send_routes(self, force=False, single_port=None):
