@@ -112,7 +112,9 @@ class DVRouter(DVRouterBase):
         """
         
         ##### Begin Stages 3, 6, 7, 8, 10 #####
-
+        for port in self.ports.get_all_ports():
+            for host, entry in self.table.items():
+                self.send_route(port, entry.dst, entry.latency)
         ##### End Stages 3, 6, 7, 8, 10 #####
 
     def expire_routes(self):
